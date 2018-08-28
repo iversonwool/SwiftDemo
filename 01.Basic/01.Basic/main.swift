@@ -73,13 +73,26 @@ print(min)
 // 可选绑定
 
 // 隐式解析可选
+//你可以把隐式解析可选类型当做一个可以自动解析的可选类型。
+//你要做的只是声明的时候把感叹号放到类型的结尾，而不是每次取值的可选名字的结尾。
+let assumedString: String! = "An implicitly unwrapped optional string"
+let implicitString = assumedString //不需要感叹号
+//print(implicitString!)
+
+
+//注意
+//
+//如果你在隐式解析可选类型没有值的时候尝试取值，会触发运行时错误。
+//和你在没有值的普通可选类型后面加一个惊叹号一样。
+
+
 
 //Float64
 
 // first : the condition that code can continue
 // second: the message that make code terminate
-assert(min == -127, "min != -128")
-print("continue")
+//assert(min == -127, "min != -128")
+//print("continue")
 
 
 
