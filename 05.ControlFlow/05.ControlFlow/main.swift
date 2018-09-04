@@ -82,6 +82,9 @@ case (let x, let y):
 //    print("just a point")
 }
 
+let xxx = UInt8("12")
+print("xxx is \(xxx!)")
+
 //*****************************************************//
 // 如果最后一个case的值能匹配所有的情况 那么不需要default 分支 //
 //*****************************************************//
@@ -100,6 +103,54 @@ case (let x, let y):
     print("not line point (\(x), \(y))")
 }
 
+
+//提前退出
+//guard
+//条件必须为真时，以执行 guard 语句后的代码。
+//不同于 if 语句，一个 guard 语句总是有一个 else 从句，如果条件不为真则执行 else 从句中的代码。
+
+//避免了厄运金字塔 Pyramid of Doom
+
+//http://blog.scottlogic.com/2014/12/08/swift-optional-pyramids-of-doom.html
+//https://nshipster.cn/guard-and-defer/
+
+func greet(person: [String: String]) {
+    guard let name = person["name"] else { return }
+    print("Hello \(name)!")
+    guard let location = person["location"] else {
+        print("I hope the weather is nice near you.")
+        return
+    }
+    print("I hope the weather is nice in \(location)!")
+}
+
+greet(person: ["name": "John"])
+greet(person: ["name": "Jane", "location": "Cupertino"])
+
+
+
+enum ConversionError: Error {
+    case InvalidFormat, OutOfBounds, Unknown
+}
+
+extension UInt8 {
+    init(fromString string: String) throws {
+        guard string == "Hello" else {
+            throw ConversionError.InvalidFormat
+        }
+        guard UInt8(string)! == UInt8.max else {
+            throw ConversionError.OutOfBounds
+        }
+        guard let value = UInt(string) else { throw ConversionError.Unknown }
+        self.init(value)
+    }
+}
+
+//try {
+//    if let someInt = UInt8(fromString: "Hello") {
+//        print(someInt)
+//    }
+//}
 
 if #available(iOS 10, macOS 10.12, *) {
     print("available")
