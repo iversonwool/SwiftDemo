@@ -165,6 +165,21 @@ func processFile(filename: String) throws {
 }
 
 
+//该语句让你能执行一些必要的清理工作，不管是以何种方式离开当前代码块的——无论是由于抛出错误而离开，或是由于诸如 return、break 的语句。
+//这种写法确实聪明，但这样却颠倒了函数的逻辑顺序，极大降低了代码的可读性。
+//应该严格遵循 defer 在整个程序最后运行以释放已申请资源的原则，其他任何使用方法都可能让代码乱成一团。
+//
+postfix func ++(x: inout Int) -> Int {
+    defer {
+        x += 1
+    }
+    return x
+}
+
+
+var xx = 3
+print(xx++)
+print(xx)
 
 
 
