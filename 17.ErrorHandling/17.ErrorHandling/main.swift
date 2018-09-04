@@ -18,7 +18,6 @@ enum VendingMachingError: Error {
     case outOfStock
 }
 
-
 // throw VendingMachingError.insufficientFunds(coinsNeeded: 5)
 
 //4种错误处理方式
@@ -32,6 +31,8 @@ struct Item {
     var count: Int
     
 }
+
+
 class VendingMachine {
     var inventory = [
         "Candy Bar": Item(price: 12, count: 7),
@@ -79,7 +80,12 @@ let favoriteSnacks = [
 
 func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
     let snackName = favoriteSnacks[person] ?? "Candy Bar"
-    try vendingMachine.vend(itemName: snackName) // 因为 vend(itemNamed:) 方法能抛出错误，所以在调用的它时候在它前面加了 try 关键字。
+    //第一种方式：把函数抛出的错误传递给调用此函数的代码
+    
+    // 因为 vend(itemNamed:) 方法能抛出错误，所以在调用的它时候在它前面加了 try 关键字。
+    // 因为 vend(itemNamed:) 方法能抛出错误，所以在调用的它时候在它前面加了 try 关键字。
+    // 因为 vend(itemNamed:) 方法能抛出错误，所以在调用的它时候在它前面加了 try 关键字。
+    try vendingMachine.vend(itemName: snackName)
 }
 
 
@@ -87,6 +93,7 @@ func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
 var vendingMachine = VendingMachine()
 
 vendingMachine.coinsDeposited = 8
+//第二种方式：用 do-catch 语句处理错误
 do {
     try buyFavoriteSnack(person: "Alice", vendingMachine: vendingMachine)
 } catch VendingMachingError.invalidSelection {
@@ -107,6 +114,7 @@ func someThrowingFunction() throws -> Int {
 //例如，在下面的代码中，x 和 y 有着相同的数值和等价的含义：
 //如果在评估 try? 表达式时一个错误被抛出，那么表达式的值就是 nil。
 
+//第三种方式：将错误作为可选类型处理
 let x = try? someThrowingFunction()
 
 let y: Int?
@@ -117,14 +125,18 @@ do {
 }
 
 
-
+//第四种方式：或者断言此错误根本不会发生
 //禁用错误传递
 //
 //有时你知道某个 throwing 函数实际上在运行时是不会抛出错误的，
 //在这种情况下，你可以在表达式前面写 try! 来禁用错误传递，这会把调用包装在一个不会有错误抛出的运行时断言中。
 //如果真的抛出了错误，你会得到一个运行时错误。
 //
-//
+
+//let photo = try! loadImage(atPath: "./Resource/Jhon Appleseed.jpg")
+
+
+
 //
 //
 //指定清理操作
