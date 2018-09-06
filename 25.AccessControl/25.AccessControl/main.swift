@@ -7,14 +7,20 @@
 //
 
 import Foundation
+import CoreGraphics // 导入CoreGraphics 模块
 
 print("Hello, World!")
 
 //模块和源文件
+//模块指的是独立的代码单元，框架或应用程序会作为一个独立的模块来构建和发布。
+//在 Swift 中，一个模块可以使用 import 关键字导入另外一个模块。
+//源文件就是 Swift 中的源代码文件，它通常属于一个模块
+
 
 
 //访问级别
-//Open Public
+//Open
+//Public
 //Internal
 //File-private
 //Private
@@ -27,20 +33,24 @@ print("Hello, World!")
 //Open 的类，可以在其定义的模块中被继承，也可以在引用它的模块中被继承。
 //Open 的类成员，可以在其定义的模块中子类中重写，也可以在引用它的模块中的子类重写。
 
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+//把一个类标记为 open，明确的表示你已经充分考虑过外部模块使用此类作为父类的影响，并且设计好了你的类的代码了。//
+//////////////////////////////////////////////////////////////////////////////////////////////
 //
 //除非专门指定，否则实体默认的访问级别为 internal，可以查阅默认访问级别这一节。
 //
 
 
 
-public class somePublicClass {}
+public class somePublicClass {
+    
+//    internal var someIvr = 3
+}
 internal class SomeInternalClass {}
 fileprivate class SomeFilePrivateClass {}
 private class SomePrivatreClass {}
-//高-不严格
-//低-严格
-
+//最高访问级别-不严格 -限制最少
+//最低访问级别-严格   -限制最多
 
 
 //访问级别基本原则
@@ -62,7 +72,11 @@ private class SomePrivatreClass {}
 //因此，在大多数情况下，我们不需要显式指定实体的访问级别。
 
 
-
+//单 target 应用程序的访问级别
+//
+//当你编写一个单目标应用程序时，应用的所有功能都是为该应用服务，
+//而不需要提供给其他应用或者模块使用，所以我们不需要明确设置访问级别，使用默认的访问级别 Internal 即可。
+//但是，你也可以使用 fileprivate 访问或 private 访问级别，用于隐藏一些功能的实现细节。
 
 
 
