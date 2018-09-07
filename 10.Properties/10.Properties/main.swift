@@ -10,7 +10,14 @@ import Foundation
 
 print("Hello, World!")
 
+//注意点
+//计算属性可以用于类、结构体和枚举，
+//存储属性只能用于类和结构体。
 
+//实例属性
+//类型属性
+
+//常量结构体
 
 struct FixedLengthRange {
     var firstValue: Int
@@ -27,12 +34,33 @@ print(rangeOfThreeItems.firstValue, rangeOfThreeItems.length)
 
 
 rangeOfThreeItems.firstValue = 6
-//rangeOfThreeItems.length = 4 // constant
+//rangeOfThreeItems.length = 4 // constant //该属性为常量
 
+
+let rangeOfFourItems = FixedLengthRange(firstValue: 3, length: 4);
+//rangeOfFourItems.firstValue = 6 //常量结构体 任何属性都不允许修改
+//这种行为是由于结构体（struct）属于值类型。
+//当值类型的实例被声明为常量的时候，它的所有属性也就成了常量
+//属于引用类型的类（class）则不一样。
+//把一个引用类型的实例赋给一个常量后，仍然可以修改该实例的变量属性。
+
+
+
+//延迟存储属性
+//注意
+//
+//必须将延迟存储属性声明成变量（使用 var 关键字），
+//因为属性的初始值可能在实例构造完成之后才会得到。
+//    而常量属性在构造过程完成之前必须要有初始值，
+//因此无法声明成延迟属性。
 
 class DataImporter {
+    /*
+     DataImporter 是一个负责将外部文件中的数据导入的类。
+     这个类的初始化会消耗不少时间。
+     */
     var fileName = "data.txt"
-    
+    // 这里会提供数据导入功能
 }
 
 
@@ -42,7 +70,7 @@ class DataImporter {
 class DataManager {
     lazy var importer = DataImporter()
     var data = [String]()
-    
+    // 这里会提供数据管理功能
 }
 
 let manager = DataManager()
@@ -60,7 +88,9 @@ print(manager.importer.fileName)
 
 // 没有实例变量
 
-
+//计算属性
+//除存储属性外，类、结构体和枚举可以定义计算属性。
+//计算属性不直接存储值，而是提供一个 getter 和一个可选的 setter，来间接获取和设置其他属性或变量的值。
 struct Point {
     var x = 0.0, y = 0.0
     
@@ -85,13 +115,18 @@ struct Rect {
 //            origin.x = newCenter.x - size.width / 2
 //            origin.y = newCenter.y - size.height / 2
 //        }
-        
+        //简化setter声明
         set {
             origin.x = newValue.x - size.width / 2
             origin.y = newValue.y - size.height / 2
         }
     }
 }
+
+//注意
+//
+//必须使用 var 关键字定义计算属性，包括只读计算属性，因为它们的值不是固定的。
+//let 关键字只用来声明常量属性，表示初始化后再也无法修改的值。
 
 var square = Rect(origin: Point(), size: Size(width: 10.0, height: 10.0))
 
@@ -106,7 +141,7 @@ print(square.origin)
 
 struct Cuboid {
     var width = 0.0, height = 0.0, depth = 0.0
-    
+//    只读计算属性的声明可以去掉 get 关键字和花括号：
     var volume: Double {
         return width * height * depth
     }
@@ -119,6 +154,10 @@ print(cuboid.volume)
 // readonly
 //cuboid.volume = 70
 
+//属性观察器
+//你可以为除了延迟存储属性之外的其他存储属性添加属性观察器，
+//也可以通过重写属性的方式为继承的属性（包括存储属性和计算属性）添加属性观察器。
+//你不必为非重写的计算属性添加属性观察器，因为可以通过它的 setter 直接监控和响应值的变化。
 class StepCounter {
     var totalSteps: Int = 0 {
         willSet {
@@ -133,25 +172,36 @@ class StepCounter {
     
 }
 
+
+
+
 let stepCounter = StepCounter()
 stepCounter.totalSteps = 200
 
 stepCounter.totalSteps = 360
 
-//struct Cuboid {
-//    var width = 0.0, height = 0.0, depth = 0.0
-//    var volume: Double {
-//        get {
-//            return depth * height * width
+//注意
+//
+//父类的属性在子类的构造器中被赋值时，它在父类中的 willSet 和 didSet 观察器会被调用，随后才会调用子类的观察器。
+//在父类初始化方法调用之前，子类给属性赋值时，观察器不会被调用。
+
+
+class SubStepCounter: StepCounter {
+    //
+//    override var totalSteps: Int = 0 {
+//        willSet {
+//
 //        }
-//        //        willSet {
-//        //
-//        //        }
-//        set {
-//            print(newValue)
+//        didSet {
+//
 //        }
 //    }
-//}
+}
+
+let subStepCounter = SubStepCounter()
+
+subStepCounter.totalSteps = 300
+
 
 struct SomeStructure {
     static var storedTypeProperty = "Some value."
