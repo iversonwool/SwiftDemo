@@ -151,6 +151,15 @@ final class AutomaticCar2: Car {
 //}
 
 
+//struct Father {
+//    var name = "father"
+//    
+//}
+//
+//
+//struct Son: Father {
+//    //
+//}
 
 
 

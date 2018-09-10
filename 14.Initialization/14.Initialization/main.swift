@@ -133,8 +133,11 @@ let twoByTwo = Size(width: 2.0, height: 2.0)
 
 
 // 构造器代理
+//MARK:值类型的构造器代理
 
-
+///////////////////////////////////////
+//值类型（结构体和枚举类型）不支持继承///////
+///////////////////////////////////////
 
 
 struct Point {
@@ -163,8 +166,12 @@ struct Rect {
     }
 }
 
+//注意
+//
+//假如你希望默认构造器、逐一成员构造器以及你自己的自定义构造器都能用来创建实例，
+//可以将自定义的构造器写到扩展（extension）中，而不是写在值类型的原始定义中。
 
-
+//MARK:类的继承和构造过程
 //类的构造器代理规则
 
 //规则 1
@@ -251,7 +258,7 @@ class RecipeIngredient: Food {
 
 
 let oneMysteryItem = RecipeIngredient()
-print(oneMysteryItem.quantity)
+print("see ---- \(oneMysteryItem.quantity)")
 
 
 
