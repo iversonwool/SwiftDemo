@@ -11,7 +11,22 @@ import Foundation
 print("Hello, World!")
 
 
-var shoppingList = ["Eggs", "Milk"]
+var shoppingList = ["Eggs", nil, "Milk"]
+
+
+//for item in shoppingList {
+//    print("item => \(item)")
+//}
+
+for case let item? in shoppingList {
+    print("item => \(item)")
+}
+
+
+for case .some(let item) in shoppingList {
+    print(item)
+    
+}
 
 print(shoppingList.count)
 

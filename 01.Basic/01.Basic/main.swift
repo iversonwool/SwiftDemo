@@ -103,6 +103,12 @@ print(min)
 //使用 ! 来获取一个不存在的可选值会导致运行时错误。
 //使用 ! 来强制解析值之前，一定要确定可选包含一个非 nil 的值。
 
+let xxx: Optional<Int> = Int("43")
+
+
+
+
+
 let convertedNumber = Int("123")
 
 if convertedNumber != nil {
