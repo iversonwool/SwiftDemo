@@ -11,6 +11,19 @@ import Foundation
 print("Hello, World!")
 
 
+let names = ["Tom",
+             nil,
+             "Peter",
+             nil,
+             "Harry"]
+
+
+//let valid = names.flatMap { $0 }
+let valid = names.compactMap { $0 }
+print(valid)
+
+
+
 var shoppingList = ["Eggs", nil, "Milk"]
 
 
