@@ -11,12 +11,16 @@ import CoreGraphics // 导入CoreGraphics 模块
 
 print("Hello, World!")
 
+
+
+//MARK: - 模块和源文件
 //模块和源文件
 //模块指的是独立的代码单元，框架或应用程序会作为一个独立的模块来构建和发布。
 //在 Swift 中，一个模块可以使用 import 关键字导入另外一个模块。
 //源文件就是 Swift 中的源代码文件，它通常属于一个模块
 
 
+//MARK: - 访问级别
 
 //访问级别
 //Open
@@ -25,6 +29,24 @@ print("Hello, World!")
 //File-private
 //Private
 
+//Open 和 Public 级别可以让实体被同一模块源文件中的所有实体访问，在模块外也可以通过导入该模块来访问源文件里的所有实体。
+//通常情况下，你会使用 Open 或 Public 级别来指定框架的外部接口。Open 和 Public 的区别在后面会提到。
+
+//Internal 级别让实体被同一模块源文件中的任何实体访问，但是不能被模块外的实体访问。
+//通常情况下，如果某个接口只在应用程序或框架内部使用，就可以将其设置为 Internal 级别。
+
+//File-private 限制实体只能在其定义的文件内部访问。
+//如果功能的部分细节只需要在文件内使用时，可以使用 File-private 来将其隐藏。
+
+//Private 限制实体只能在其定义的作用域，以及同一文件内的 extension 访问。
+//如果功能的部分细节只需要在当前作用域内使用时，可以使用 Private 来将其隐藏。
+
+
+
+
+////////////////////////////////////////////////////////////////
+//Open 为最高访问级别（限制最少），Private 为最低访问级别（限制最多）。//
+////////////////////////////////////////////////////////////////
 
 //Open 只能作用于类和类的成员，它和 Public 的区别如下：
 //
@@ -40,8 +62,13 @@ print("Hello, World!")
 //除非专门指定，否则实体默认的访问级别为 internal，可以查阅默认访问级别这一节。
 //
 
+let internalStructA = InternalStruct()
+print(internalStructA.name)
+
+//let fileprivateStructA = FileprivateStruct()
 
 
+//MARK: - 访问控制语法
 public class somePublicClass {
     
 //    internal var someIvr = 3
@@ -77,33 +104,4 @@ private class SomePrivatreClass {}
 //当你编写一个单目标应用程序时，应用的所有功能都是为该应用服务，
 //而不需要提供给其他应用或者模块使用，所以我们不需要明确设置访问级别，使用默认的访问级别 Internal 即可。
 //但是，你也可以使用 fileprivate 访问或 private 访问级别，用于隐藏一些功能的实现细节。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

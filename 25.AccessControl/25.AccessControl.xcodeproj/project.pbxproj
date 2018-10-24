@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		D445FCC221351CD10086DC02 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D445FCC121351CD10086DC02 /* main.swift */; };
+		D4707ECF2180677500F45732 /* FileFilePrivate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707ECE2180677500F45732 /* FileFilePrivate.swift */; };
+		D4707ED1218067E700F45732 /* Internal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707ED0218067E700F45732 /* Internal.swift */; };
+		D4707ED32180694A00F45732 /* Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4707ED22180694A00F45732 /* Private.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		D445FCBE21351CD10086DC02 /* 25.AccessControl */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = 25.AccessControl; sourceTree = BUILT_PRODUCTS_DIR; };
 		D445FCC121351CD10086DC02 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		D4707ECE2180677500F45732 /* FileFilePrivate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileFilePrivate.swift; sourceTree = "<group>"; };
+		D4707ED0218067E700F45732 /* Internal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internal.swift; sourceTree = "<group>"; };
+		D4707ED22180694A00F45732 /* Private.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Private.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,9 @@
 			isa = PBXGroup;
 			children = (
 				D445FCC121351CD10086DC02 /* main.swift */,
+				D4707ECE2180677500F45732 /* FileFilePrivate.swift */,
+				D4707ED0218067E700F45732 /* Internal.swift */,
+				D4707ED22180694A00F45732 /* Private.swift */,
 			);
 			path = 25.AccessControl;
 			sourceTree = "<group>";
@@ -94,6 +103,7 @@
 				TargetAttributes = {
 					D445FCBD21351CD10086DC02 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -120,6 +130,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D445FCC221351CD10086DC02 /* main.swift in Sources */,
+				D4707ECF2180677500F45732 /* FileFilePrivate.swift in Sources */,
+				D4707ED1218067E700F45732 /* Internal.swift in Sources */,
+				D4707ED32180694A00F45732 /* Private.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +257,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -253,7 +266,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
