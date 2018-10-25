@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import MapKit
 print("Hello, World!")
 
 for index in 1...6 { // [1, 6]
@@ -152,6 +152,7 @@ extension UInt8 {
 //    }
 //}
 
+//MARK: - Checking API Availability with Swift
 if #available(iOS 10, macOS 10.12, *) {
     print("available")
 } else {
@@ -162,4 +163,22 @@ if #available(iOS 10, macOS 10.12, *) {
 //
 //}
 
+//With Swift the availability checks are now built-in and checked at compile time.
 
+
+let manager = CLLocationManager()
+
+if #available(iOS 9.0, *) {
+//    somecode
+
+}
+
+//The #available condition takes a list of platforms (ios, OSX, watchOS) and versions.
+if #available(iOS 9, OSX 10.10, watchOS 3.0, *) {
+}
+//You always need the final * wildcard to cover the other unspecified platforms even if your App is not targeting them.
+//If you have a whole function or class that should be conditionally available use @available:
+@available(iOS 9.0, *)
+func checkingAPI() -> Bool {
+    return true
+}
