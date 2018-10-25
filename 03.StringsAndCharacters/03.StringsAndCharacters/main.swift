@@ -82,6 +82,9 @@ if empty.isEmpty {
     print("empty string")
 }
 
+//create
+let h = String(repeating: "01", count: 3)
+print(h)
 
 //MARK:字符串可变性
 var s = "value🐶"
