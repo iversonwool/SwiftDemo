@@ -8,6 +8,8 @@
 
 import Foundation
 
+import QuartzCore
+
 print("Hello, World!")
 
 
@@ -377,10 +379,38 @@ class SomeSubclass: SomeClass {
 //print(value)
 
 
+//MARK:test code
+
+//let iterations = 1_000_000
+let iterations = 100_000
+
+class Employee {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+    func didSomething() -> Bool {
+        //some complicated implementation
+        //details go here
+        //return false
+        return true
+    }
+}
+
+let tim = Employee(name: "Tim Cook")
+let startTime = CFAbsoluteTimeGetCurrent()
+for _ in 1...iterations {
+    if tim.didSomething() {
+        print("Yes!")
+    }
+}
+
+let endTime = CFAbsoluteTimeGetCurrent()
+let result = endTime - startTime
 
 
 
+print(result)
 
 
-
-
+//CACurrentMediaTime()
