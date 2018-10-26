@@ -10,37 +10,50 @@ import Foundation
 
 print("Hello, World!")
 
+
+//MARK: - 协议语法
+
+protocol FirstProtocol {
+    //这里是协议的定义部分
+}
+
+
+//MARK: - 属性要求
+
+//协议可以要求遵循协议的类型提供特定名称和类型的实例属性或类型属性。
+//协议不指定属性是存储型属性还是计算型属性，它只指定属性的名称和类型。
+//此外，协议还指定属性是可读的还是可读可写的。
+
+
 protocol SomeProtocol {
     //definition
-    var mustBeSettable: Int {
-        get
-        set
-    }
+    //协议总是用 var 关键字来声明变量属性，在类型声明后加上 { set get } 来表示属性是可读可写的，可读属性则用 { get } 来表示：
+    var mustBeSettable: Int { get set }
+    var doesNotNeedToBeSettable: Int { get }
+    //在协议中定义类型属性时，总是使用 static 关键字作为前缀。
+    //当类类型遵循协议时，除了 static 关键字，还可以使用 class 关键字来声明类型属性：
+    //static var someTypeProperty: Int { get set }
     static func someTypeMethod()
 }
 
-
-protocol FirstProtocol {
-    //
-}
-
+//protocol UsedByClass {
+//    static var someTypeProperty: Int { get set }
+//}
+//class SomeClassTest: UsedByClass {
+//    static var someTypeProperty: Int = 3
+//}
 
 struct SomeStructure: SomeProtocol {
+    //（如果协议要求未被完全满足，在编译时会报错。）
     //definition
     var mustBeSettable: Int
-    static func someTypeMethod() {
-        //
-    }
+    var doesNotNeedToBeSettable: Int
+    static func someTypeMethod() {}
 }
 
-class SomeSuperClass {
-    //
-}
-
-class SomeClass: SomeSuperClass, FirstProtocol {
-    //
-    
-}
+class SomeSuperClass {}
+//拥有父类的类在遵循协议时，应该将父类名放在协议名之前，以逗号分隔
+class SomeClass: SomeSuperClass, FirstProtocol {}
 
 
 protocol FullyNamed {
@@ -75,7 +88,7 @@ print(ncc1710.fullName)
 
 
 
-
+//MARK: - 方法要求
 
 protocol RandomNumberGenerator {
     func random() -> Double
@@ -100,12 +113,10 @@ print(generator.random())
 print(generator.random())
 
 
-//4.mutating方法要求
-//
+//MARK: - mutating方法要求
+
 //注意
-//
 //实现协议中的 mutating 方法时，若是类类型，则不用写 mutating 关键字。而对于结构体和枚举，则必须写 mutating 关键字。
-//
 
 protocol Toggable {
     mutating func toggle()
