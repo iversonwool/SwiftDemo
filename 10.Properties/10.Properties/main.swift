@@ -10,6 +10,8 @@ import Foundation
 
 print("Hello, World!")
 
+
+//MARK: - 属性
 //注意点
 //计算属性可以用于类、结构体和枚举，
 //存储属性只能用于类和结构体。
@@ -19,6 +21,7 @@ print("Hello, World!")
 
 //常量结构体
 
+//MARK: - 存储属性
 struct FixedLengthRange {
     var firstValue: Int
     let length: Int
@@ -36,7 +39,7 @@ print(rangeOfThreeItems.firstValue, rangeOfThreeItems.length)
 rangeOfThreeItems.firstValue = 6
 //rangeOfThreeItems.length = 4 // constant //该属性为常量
 
-
+//MARK: - 常量结构体的存储属性
 let rangeOfFourItems = FixedLengthRange(firstValue: 3, length: 4);
 //rangeOfFourItems.firstValue = 6 //常量结构体 任何属性都不允许修改
 //这种行为是由于结构体（struct）属于值类型。
@@ -46,7 +49,7 @@ let rangeOfFourItems = FixedLengthRange(firstValue: 3, length: 4);
 
 
 
-//延迟存储属性
+//MARK: - 延迟存储属性
 //注意
 //
 //必须将延迟存储属性声明成变量（使用 var 关键字），
@@ -85,10 +88,10 @@ print(manager.importer.fileName)
 
 
 
-
+//MARK: - 存储属性和实例变量
 // 没有实例变量
 
-//计算属性
+//MARK: - 计算属性
 //除存储属性外，类、结构体和枚举可以定义计算属性。
 //计算属性不直接存储值，而是提供一个 getter 和一个可选的 setter，来间接获取和设置其他属性或变量的值。
 struct Point {
@@ -115,7 +118,7 @@ struct Rect {
 //            origin.x = newCenter.x - size.width / 2
 //            origin.y = newCenter.y - size.height / 2
 //        }
-        //简化setter声明
+        //MARK: - 简化setter声明
         set {
             origin.x = newValue.x - size.width / 2
             origin.y = newValue.y - size.height / 2
@@ -123,6 +126,8 @@ struct Rect {
     }
 }
 
+
+//MARK: - 只读计算属性
 //注意
 //
 //必须使用 var 关键字定义计算属性，包括只读计算属性，因为它们的值不是固定的。
@@ -154,7 +159,7 @@ print(cuboid.volume)
 // readonly
 //cuboid.volume = 70
 
-//属性观察器
+//MARK: - 属性观察器
 //你可以为除了延迟存储属性之外的其他存储属性添加属性观察器，
 //也可以通过重写属性的方式为继承的属性（包括存储属性和计算属性）添加属性观察器。
 //你不必为非重写的计算属性添加属性观察器，因为可以通过它的 setter 直接监控和响应值的变化。
@@ -233,6 +238,8 @@ print(SomeStructure.storedTypeProperty)
 print(SomeEnumeration.computedTypeProperty)
 
 print(SomeClass.computedTypeProperty)
+
+
 
 struct AudioChannel {
     static let thresholdLevel = 10
