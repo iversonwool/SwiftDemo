@@ -12,8 +12,11 @@ import QuartzCore
 
 print("Hello, World!")
 
+//MARK: - 构造过程
 
+//与 Objective-C 中的构造器不同，Swift 的构造器无需返回值，它们的主要任务是保证新实例在第一次使用前完成正确的初始化。
 
+//MARK: - 存储属性的初始赋值
 
 class XXX {
     var name: String
@@ -35,20 +38,40 @@ let xxx = XXX(name: "xxx")
 //
 //当你为存储型属性设置默认值或者在构造器中为其赋值时，它们的值是被直接设置的，不会触发任何属性观察者。
 
-
+//MARK: - 构造器
 
 struct Fahrenheit {
 //    var temperature: Double
 //    init() {
 //        temperature = 32.0
 //    }
-    var temperature = 32.0
+    var temperature: Double {
+        willSet {
+            ////当你为存储型属性设置默认值或者在构造器中为其赋值时，它们的值是被直接设置的，不会触发任何属性观察者。
+            print("\(newValue)")
+        }
+    }
+    init() {
+        temperature = 32.0
+    }
     
 }
+
+//当你为存储型属性设置默认值或者在构造器中为其赋值时，它们的值是被直接设置的，不会触发任何属性观察者。
 
 var f = Fahrenheit()
 print("the default temperature is \(f.temperature) Fahrenheit")
 
+
+//MARK: - 默认属性值
+
+//如果一个属性总是使用相同的初始值，那么为其设置一个默认值比每次都在构造器中赋值要好
+//struct Fahrenheit {
+//    var temperature = 32.0
+//}
+
+//MARK: - 自定义构造过程
+//MARK: - 构造参数
 
 struct Celsius {
     var temperatureInCelsius: Double
@@ -58,6 +81,8 @@ struct Celsius {
     init(fromKelvin kelvin: Double) {
         temperatureInCelsius = kelvin - 273.15
     }
+    
+    //MARK: - 不带参数标签的构造器参数
     init(_ celsius: Double) {
         temperatureInCelsius = celsius
     }
@@ -71,7 +96,7 @@ let freezingPointOfWater = Celsius(fromKelvin: 273.15)
 print(freezingPointOfWater.temperatureInCelsius)
 
 
-
+//MARK: - 参数名和参数标签
 struct Color {
     let red, green, blue: Double
     init(red: Double, green: Double, blue: Double) {
@@ -92,13 +117,12 @@ struct Color {
 let bodyTemperature = Celsius(37.0)
 
 
-
-//warning
-//声明SurveyQuestion是class 后面的response可以被赋值
-//声明SurveyQuestion是struct 后面的response不可以被赋值
+//MARK: - 可选属性类型
 
 class SurveyQuestion {
 //    var text: String
+    //MARK: - 构造过程中常量属性的赋值
+    //对于类的实例来说，它的常量属性只能在定义它的类的构造过程中修改；不能在子类中修改。
     let text: String
     
     var response: String?
@@ -111,6 +135,9 @@ class SurveyQuestion {
 }
 
 
+//warning
+//声明SurveyQuestion是class 后面的response可以被赋值
+//声明SurveyQuestion是struct 后面的response不可以被赋值
 
 let cheeseQuestion = SurveyQuestion(text: "do you like cheese?")
 
@@ -124,17 +151,31 @@ cheeseQuestion.response = "yes, I do"
 //对于类的实例来说，它的常量属性只能在定义它的类的构造过程中修改；不能在子类中修改。
 
 
+//MARK: - 默认构造器
+//如果结构体或类的所有属性都有默认值，同时没有自定义的构造器，那么 Swift 会给这些结构体或类提供一个默认构造器（default initializers）。
+//这个默认构造器将简单地创建一个所有属性值都设置为默认值的实例。
 
-
+//MARK: - 结构体的逐一成员构造器
 struct Size {
     var width = 0.0, height = 0.0
     
 }
 let twoByTwo = Size(width: 2.0, height: 2.0)
 
+struct Test {
+    var name: String
+    var age: Int
+    
+}
+
+let test11 = Test(name: "name", age: 11)
 
 
 // 构造器代理
+
+//构造器可以通过调用其它构造器来完成实例的部分构造过程。
+//这一过程称为构造器代理，它能避免多个构造器间的代码重复。
+
 //MARK:值类型的构造器代理
 
 ///////////////////////////////////////
