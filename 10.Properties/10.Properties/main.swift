@@ -180,10 +180,10 @@ class StepCounter {
 
 
 
-let stepCounter = StepCounter()
-stepCounter.totalSteps = 200
-
-stepCounter.totalSteps = 360
+//let stepCounter = StepCounter()
+//stepCounter.totalSteps = 200
+//
+//stepCounter.totalSteps = 360
 
 //注意
 //
@@ -193,21 +193,49 @@ stepCounter.totalSteps = 360
 
 class SubStepCounter: StepCounter {
     //
-//    override var totalSteps: Int = 0 {
+//    override var totalSteps: Int {
 //        willSet {
-//
+//            print("About to set totalSteps to \(newValue)")
 //        }
 //        didSet {
-//
+//            if totalSteps > oldValue {
+//                print("Add \(totalSteps - oldValue) steps")
+//            }
 //        }
+//    }
+//    init(totalSteps: Int) {
+//        super.init()
+//        self.totalSteps = totalSteps
 //    }
 }
 
 let subStepCounter = SubStepCounter()
+//let subStepCounter = SubStepCounter(totalSteps: 300)
 
-subStepCounter.totalSteps = 300
+
+//subStepCounter.totalSteps = 300
 
 
+//MARK: - 全局变量和局部变量
+
+//计算属性和属性观察器所描述的功能也可以用于全局变量和局部变量。
+//全局变量是在函数、方法、闭包或任何类型之外定义的变量。
+//局部变量是在函数、方法或闭包内部定义的变量。
+
+//计算属性和属性观察器所描述的功能也可以用于全局变量和局部变量。
+//全局变量是在函数、方法、闭包或任何类型之外定义的变量。
+//局部变量是在函数、方法或闭包内部定义的变量。
+
+
+
+//MARK: - 类型属性
+
+//跟实例的存储型属性不同，必须给存储型类型属性指定默认值，因为类型本身没有构造器，也就无法在初始化过程中使用构造器给类型属性赋值。
+//
+//存储型类型属性是延迟初始化的，它们只有在第一次被访问的时候才会被初始化。
+//即使它们被多个线程同时访问，系统也保证只会对其进行一次初始化，并且不需要对其使用 lazy 修饰符。
+
+//MARK: - 类型属性语法
 struct SomeStructure {
     static var storedTypeProperty = "Some value."
     static var computedTypeProperty: Int {
@@ -228,10 +256,19 @@ class SomeClass {
     static var computedTypeProperty: Int {
         return 1
     }
+    // 计算型的类属性
+    // 计算型的类属性
+    // 计算型的类属性
+    //class var xxx = "ddd" // 计算型的类属性
+//    在为类定义计算型类型属性时，可以改用关键字 class 来支持子类对父类的实现进行重写。
+    class var overrideableComputedTypeProperty: Int {
+        return 107
+    }
 }
 
 print(SomeStructure.storedTypeProperty)
 
+//MARK: - 获取和设置类型属性的值
 SomeStructure.storedTypeProperty = "Another Value."
 print(SomeStructure.storedTypeProperty)
 
