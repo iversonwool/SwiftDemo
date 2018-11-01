@@ -215,7 +215,25 @@ struct Rect {
 //可以将自定义的构造器写到扩展（extension）中，而不是写在值类型的原始定义中。
 
 //MARK:类的继承和构造过程
-//类的构造器代理规则
+
+
+//MARK: - 指定构造器和便利构造器
+//类倾向于拥有少量指定构造器，普遍的是一个类拥有一个指定构造器。
+//每一个类都必须至少拥有一个指定构造器。
+//在某些情况下，许多类通过继承了父类中的指定构造器而满足了这个条件。
+//你可以定义便利构造器来调用同一个类中的指定构造器，并为其参数提供默认值。
+
+//MARK: - 指定构造器和便利构造器的画语法
+
+//init(parameters) {
+//    statements
+//}
+
+//convenience init(parameters) {
+//    statements
+//}
+
+//MARK: - 类的构造器代理规则
 
 //规则 1
 //
@@ -234,9 +252,10 @@ struct Rect {
 //指定构造器必须总是向上代理
 //便利构造器必须总是横向代理
 
-//两段式构造过程
+//MARK: - 两段式构造过程
 
 
+//MARK: - 构造器的继承和重写
 class Vehicle {
     var numberOfWheels = 0
     var description: String {
@@ -262,12 +281,25 @@ let bicycle = Bicycle()
 print(bicycle.description)
 
 
+
+//MARK: - 构造器的自动继承
+//2个规则
+//如果子类没有定义任何指定构造器，它将自动继承父类所有的指定构造器。
+
+//如果子类提供了所有父类指定构造器的实现——无论是通过规则 1 继承过来的，还是提供了自定义实现——它将自动继承父类所有的便利构造器。
+//注意
+//
+//对于规则 2，子类可以将父类的指定构造器实现为便利构造器。
+
+
+//MARK: - 指定构造器和便利构造器实践
 class Food {
     var name: String
     init(name: String) {
         self.name = name
     }
-    
+    //注意，RecipeIngredient 的便利构造器 init(name: String) 使用了跟 Food 中指定构造器 init(name: String) 相同的参数。
+    //由于这个便利构造器重写了父类的指定构造器 init(name: String)，因此必须在前面使用 override 修饰符
     convenience init() {
         print("先调用父类继承的 convenience init 方法")
         self.init(name: "[Unnamed]")
@@ -303,7 +335,7 @@ class RecipeIngredient: Food {
 let oneMysteryItem = RecipeIngredient()
 print("see ---- \(oneMysteryItem.quantity)")
 
-
+print("see ---- \(oneMysteryItem.name)")
 
 
 
@@ -423,7 +455,7 @@ class SomeSubclass: SomeClass {
 //MARK:test code
 
 //let iterations = 1_000_000
-let iterations = 100_000
+let iterations = 1_0
 
 class Employee {
     var name: String
