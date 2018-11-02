@@ -418,6 +418,30 @@ let fahrenheitUnit = TemperatureUnitX(rawValue: "F")
 
 //MARK:- 构造失败的传递
 
+class Product {
+    let name: String
+    init?(name: String) {
+        if name.isEmpty {
+            return nil
+        }
+        self.name = name
+    }
+}
+
+class CartItem: Product {
+    let quantity: Int
+    init?(name: String, quantity: Int) {
+        if quantity < 1 {
+            return nil
+        }
+        self.quantity = quantity
+        super.init(name: name)
+    }
+}
+
+
+//MARK: - 重写一个可失败构造器
+
 class Document {
     var name: String?
     init() {}
@@ -428,6 +452,8 @@ class Document {
         self.name = name
     }
 }
+
+//你可以用非可失败构造器重写可失败构造器，但反过来却不行。
 
 class AutomaticallyNamedDocument: Document {
     override init() {
@@ -452,7 +478,12 @@ class UntitledDocument: Document {
     }
 }
 
+//MARK: - init!可失败构造器
 
+
+//MARK: - 必要构造器
+
+//在类的构造器前添加 required 修饰符表明所有该类的子类都必须实现该构造器：
 
 
 class SomeClass {
@@ -461,15 +492,39 @@ class SomeClass {
     }
 }
 
+//
+//在子类重写父类的必要构造器时，必须在子类的构造器前也添加 required 修饰符，表明该构造器要求也应用于继承链后面的子类。
+//在重写父类中必要的指定构造器时，不需要添加 override 修饰符：
+
+
 class SomeSubclass: SomeClass {
     required init() {
         //
     }
+    
+    //MARK: - 通过闭包或函数设置属性的默认值
     let someProperty: Double = {
+        
+//        如果你使用闭包来初始化属性，请记住在闭包执行时，实例的其它部分都还没有初始化。
+//        这意味着你不能在闭包里访问其它属性，即使这些属性有默认值。
+//        同样，你也不能使用隐式的 self 属性，或者调用任何实例方法。
         return 2.0
     }()
     
 }
+
+
+func getSomeValue() -> Int {
+    return 32
+}
+
+class XXXClass {
+    let someInt: Int = getSomeValue()
+    
+}
+
+let someInstance = XXXClass()
+print(someInstance.someInt)
 
 
 //
@@ -482,7 +537,7 @@ class SomeSubclass: SomeClass {
 //print(value)
 
 
-//MARK:test code
+//MARK: - test code
 
 //let iterations = 1_000_000
 let iterations = 1_0
