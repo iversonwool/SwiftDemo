@@ -363,6 +363,9 @@ for item in breakfastList {
     print(item.description)
 }
 
+//MARK: - 可失败构造器
+
+
 let wholeNumber: Double = 12345.0
 let pi = 3.14
 
@@ -381,12 +384,39 @@ struct Animal {
     }
 }
 
-
 let someCreature = Animal(spcies: "Giraffe")
 if let giraffe = someCreature {
     print(giraffe.spcies)
 }
 
+
+//MARK: - 枚举类型的可失败构造器
+
+enum TemperatureUnit {
+    case Kelcin, Celsius, Fahrenheit
+    init?(symbol: Character) {
+        switch symbol {
+        case "K":
+            self = .Kelcin
+        case "C":
+            self = .Celsius
+        case "F":
+            self = .Fahrenheit
+        default:
+            return nil
+        }
+    }
+}
+
+//MARK: - 带原始值的枚举类型的可失败构造器
+enum TemperatureUnitX: Character {
+    case Kelvin = "K", Celsius = "C", Fahrenheit = "F"
+}
+
+let fahrenheitUnit = TemperatureUnitX(rawValue: "F")
+
+
+//MARK:- 构造失败的传递
 
 class Document {
     var name: String?
