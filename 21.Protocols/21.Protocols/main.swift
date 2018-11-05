@@ -142,13 +142,13 @@ print(lightSwitch)
 
 
 
-//5.构造器要求
+//MARK: - 5.构造器要求
 
 protocol InitProtocol {
     init(parameter: Int)
 }
 
-
+//MARK: - 协议构造器要求的类实现
 
 class RequiredClass: InitProtocol {
     required init(parameter: Int) {
@@ -161,11 +161,11 @@ class RequiredClass: InitProtocol {
 //如果类已经被标记为 final，那么不需要在协议构造器的实现中使用 required 修饰符，因为 final 类不能有子类。关于 final 修饰符的更多内容，请参见防止重写。
 
 
+//MARK: - 可失败构造器要求
 
 
 
-
-//协议作为类型
+//MARK: - 协议作为类型
 class Dice {
     let sides: Int
     let generator: RandomNumberGenerator
@@ -186,7 +186,7 @@ for _ in 1...5 {
 }
 
 
-//委托
+//MARK: - 委托
 protocol DiceGame {
     var dice: Dice { get }
     func play()
@@ -258,7 +258,7 @@ game.delegate = tracker
 game.play()
 
 
-
+//MARK: - 在扩展里添加协议遵循
 
 protocol TextRepresentable {
     var textualDescription: String {
@@ -285,7 +285,9 @@ print(game.textualDescription)
 
 
 
-//有条件的遵循协议
+//MARK: - 有条件的遵循协议
+
+//泛型where分局
 extension Array: TextRepresentable where Element: TextRepresentable {
     var textualDescription: String {
         let itemsAsText = self.map { $0.textualDescription }
@@ -304,7 +306,7 @@ print(myDice.textualDescription)
 
 
 
-
+//MARK: - 在扩展里声明采纳协议
 
 //当一个类型已经符合了某个协议中的所有要求，却还没有声明采纳该协议时，可以通过空扩展体的扩展采纳该协议：
 
@@ -330,7 +332,7 @@ print(somethingTextRepresentable.textualDescription)
 
 
 
-
+//MARK: - 协议类型的集合
 
 let things: [TextRepresentable] = [game, d12, simonTheHamster]
 for thing in things {
@@ -339,7 +341,7 @@ for thing in things {
 
 
 
-
+//MARK: - 协议的继承
 
 protocol PrettyTextRepresentable: TextRepresentable {
     var prettyTextualDescription: String { get }
@@ -368,9 +370,16 @@ extension SnakeAndLadders: PrettyTextRepresentable {
 print(game.prettyTextualDescription)
 
 
+protocol SomeInheritedProtocol {
+    //
+}
 
+//MARK: - 类专属的协议
+protocol SomeClassOnlyProtocol: AnyObject, SomeInheritedProtocol {
+    // 这里是类专属协议的定义部分
+}
 
-//协议组合
+//MARK： - 协议组合
 protocol Named {
     var name: String { get }
     
@@ -395,14 +404,16 @@ wishHappyBirthday(to: birthdayPerson)
 
 
 
-//检查协议一致性
+//MARK: - 检查协议一致性
+//
+//    is 用来检查实例是否符合某个协议，若符合则返回 true，否则返回 false。
+//    as? 返回一个可选值，当实例符合某个协议时，返回类型为协议类型的可选值，否则返回 nil。
+//    as! 将实例强制向下转换到某个协议类型，如果强转失败，会引发运行时错误。
 
 
+//MARK: - 可选的协议要求
 
-
-//可选的协议要求
-
-
+//在协议中使用 optional 关键字作为前缀来定义可选要求。
 //可选要求用在你需要和 Objective-C 打交道的代码中。协议和可选要求都必须带上 @objc 属性。
 //标记 @objc 特性的协议只能被继承自 Objective-C 类的类或者 @objc 类遵循，其他类以及结构体和枚举均不能遵循这种协议。
 @objc protocol CounterDataSource {
@@ -465,7 +476,7 @@ for _ in 1...5 {
 
 
 
-//协议扩展
+//MARK: - 协议扩展
 extension RandomNumberGenerator {
     func randomBool() -> Bool {
         return random() > 0.5
@@ -476,15 +487,25 @@ let generator1 = LinearCongruentialGenerator()
 print(generator1.randomBool())
 print(generator1.randomBool())
 
+//MARK: - 提供默认实现
 
 
+extension PrettyTextRepresentable {
+    var prettyTextualDescription: String {
+        return textualDescription
+    }
+    
+}
 
+//MARK: - 为协议扩展添加限制条件
 
-
-
-
-
-
-
-
-
+extension Collection where Element: Equatable {
+    func allEqual() -> Bool {
+        for element in self {
+            if element != self.first {
+                return false
+            }
+        }
+        return true
+    }
+}
