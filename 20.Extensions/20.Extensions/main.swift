@@ -10,6 +10,8 @@ import Foundation
 
 print("Hello, World!")
 
+
+//MARK: - 扩展语法
 //注意
 
 //扩展可以为一个类型添加新的功能，但是不能重写已有的功能。
@@ -23,7 +25,7 @@ print("Hello, World!")
 //如果你通过扩展为一个已有类型添加新功能，那么新功能对该类型的所有已有实例都是可用的，即使它们是在这个扩展定义之前创建的。
 
 
-
+//MARK: - 计算型属性
 extension Double {
     var km: Double { return self * 1_000.0 }
     var m: Double { return self }
@@ -39,11 +41,11 @@ let oneMeter = 1.0.m
 
 //
 //注意
-//
+//////////////////////////////////////////////////////////////////////////
 //扩展可以添加新的计算型属性，但是不可以添加存储型属性，也不可以为已有属性添加属性观察器。
+//////////////////////////////////////////////////////////////////////////
 
-
-
+//MARK: - 构造器
 struct Size {
     var width = 0.0, height = 0.0
 }
@@ -80,7 +82,7 @@ let centerRect = Rect(center: Point(x: 4.0, y: 4.0),
 
 
 
-
+//MARK: - 方法
 
 extension Int {
     func repetitions(task: () -> Void) {
@@ -90,13 +92,13 @@ extension Int {
     }
 }
 
-
+/////尾随闭包调用可以省略括号
 3.repetitions {
     print("Hello!")
 }
 
 
-//可变实例方法
+//MARK: - 可变实例方法
 extension Int {
     mutating func square() {
         self = self * self
@@ -108,7 +110,7 @@ someInt.square()
 
 print(someInt)
 
-
+//MARK: - 下标 subscript
 extension Int {
     subscript(digitIndex: Int) -> Int {
         var decimalBase = 1
@@ -124,7 +126,7 @@ print(328_473_284[3])
 
 
 
-//嵌套类型
+//MARK: - 嵌套类型
 
 extension Int {
     enum Kind {
