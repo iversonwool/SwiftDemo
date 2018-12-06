@@ -128,7 +128,7 @@ if let convertedNumber = Int("456") {
 
 
 
-// 隐式解析可选 implicitly unwarpped optionals
+//MARK: - 隐式解析可选 implicitly unwarpped optionals
 //
 //隐式解析可选类型主要被用在 Swift 中类的构造过程中，请参考无主引用以及隐式解析可选属性。
 
@@ -139,9 +139,12 @@ if let convertedNumber = Int("456") {
 
 
 let assumedString: String! = "An implicitly unwrapped optional string"
-let implicitString = assumedString //不需要感叹号
-//print(implicitString!)
+let implicitString: String = assumedString //不需要感叹号
+print(implicitString)
 
+if assumedString != nil {
+    print(assumedString!)
+}
 
 //注意
 //
