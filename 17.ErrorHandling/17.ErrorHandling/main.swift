@@ -10,7 +10,14 @@ import Foundation
 
 print("Hello, World!")
 
+//MARK: - 错误处理
 
+//MARK: - 表示与抛出错误
+
+//////////////////////////////////////////////////////
+//在 Swift 中，错误用遵循 Error 协议的类型的值来表示。//////
+//这个空协议表明该类型可以用于错误处理。////////////////////
+//////////////////////////////////////////////////////
 
 enum VendingMachingError: Error {
     case invalidSelection
@@ -20,17 +27,23 @@ enum VendingMachingError: Error {
 
 // throw VendingMachingError.insufficientFunds(coinsNeeded: 5)
 
+
+//MARK: - 处理错误
 //4种错误处理方式
 //你可以把函数抛出的错误传递给调用此函数的代码、
 //用 do-catch 语句处理错误、
 //将错误作为可选类型处理、
 //或者断言此错误根本不会发生。
 
+
+//MARK: - 用throws函数传递错误
 struct Item {
     var price: Int
     var count: Int
     
 }
+//只有 throwing 函数可以传递错误。
+//任何在某个非 throwing 函数内部抛出的错误只能在函数内部处理。
 
 
 class VendingMachine {
@@ -89,7 +102,7 @@ func buyFavoriteSnack(person: String, vendingMachine: VendingMachine) throws {
 }
 
 
-
+//MARK: - 用Do-Catch处理错误
 var vendingMachine = VendingMachine()
 
 vendingMachine.coinsDeposited = 8
@@ -106,7 +119,7 @@ do {
 
 
 
-
+//MARK: - 讲错误转换成可选值
 func someThrowingFunction() throws -> Int {
     //
     return 1
@@ -126,7 +139,7 @@ do {
 
 
 //第四种方式：或者断言此错误根本不会发生
-//禁用错误传递
+//MARK： - 禁用错误传递
 //
 //有时你知道某个 throwing 函数实际上在运行时是不会抛出错误的，
 //在这种情况下，你可以在表达式前面写 try! 来禁用错误传递，这会把调用包装在一个不会有错误抛出的运行时断言中。
@@ -139,7 +152,7 @@ do {
 
 //
 //
-//指定清理操作
+//MARK: - 指定清理操作
 
 
 //

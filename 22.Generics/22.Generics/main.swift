@@ -221,6 +221,12 @@ print(doubleIndex ?? NSNotFound)
 let stringIndex = findIndex(of: "Andrea", in: ["Mike", "Malcolm", "Andrea"])
 print(stringIndex ?? NSNotFound)
 
+//MARK: - 关联类型
+//定义一个协议时，有的时候声明一个或多个关联类型作为协议定义的一部分将会非常有用。
+//关联类型为协议中的某个类型提供了一个占位名（或者说别名），其代表的实际类型在协议被遵循时才会被指定。
+//你可以通过 associatedtype 关键字来指定关联类型。
+
+//MARK: - 关联类型实践
 
 
 
