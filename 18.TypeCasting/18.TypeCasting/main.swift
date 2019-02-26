@@ -60,7 +60,7 @@ print("movie count is \(movieCount)")
 print("song count is \(songCount)")
 
 //is  or as   返回一个Bool值
-//as? or as! 返回一个Optional
+//as? or as!  返回一个Optional
 
 //MARK: - 向下转型
 for item in library {
