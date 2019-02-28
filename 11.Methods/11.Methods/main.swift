@@ -99,12 +99,30 @@ enum TriStateSwitch {
 
 
 class ClassType {
+    //用class 修饰的类型方法 可以被重写
     class func someTypeMethod() {
         print("call someTypeMethod")
+    }
+    
+    
+    //Cannot override static method
+    static func typeMethod() {
+        print("XXX")
     }
 }
 
 ClassType.someTypeMethod()
+
+//重写父类的类型方法
+class SubClassType: ClassType {
+    override class func someTypeMethod() {
+        //
+    }
+    
+//    override static func typeMethod() {
+//        print("XXX-XXX")
+//    }
+}
 
 
 struct LevelTracker {
