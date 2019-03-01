@@ -61,7 +61,7 @@ class Address {
     }
 }
 
-
+//MARK: - 使用 可选链式调用 代替 强制展开
 let john = Person()
 //let roomCount = john.residence!.numberOfRooms
 //这会引发运行时错误
