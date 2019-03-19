@@ -11,7 +11,7 @@ import Foundation
 print("Hello, World!")
 
 
-
+//MARK: - 自动引用计数实践
 class Person {
     let name: String
     init(name: String) {
@@ -26,12 +26,12 @@ class Person {
 }
 
 
-
 class Apartment {
     let unit: String
     init(unit: String) {
         self.unit = unit
     }
+    //MARK: - 弱引用
     //weak
     //打破了强引用
     weak var tenant: Person?
@@ -62,7 +62,8 @@ reference3 = nil
 //这就是所谓的循环强引用。
 
 
-
+///
+//MARK: - 类实例之间的循环强引用
 
 var john: Person?
 var unit4A: Apartment?
@@ -85,10 +86,24 @@ unit4A = nil
 
 
 
-//解决之法
+//MARK: - 解决实例之间的循环强引用
+
+
+//MARK: - 四种场景
+
+///1.Person and Department   在这个数据模型中，一个人并不总是拥有公寓，一栋公寓并不总是有居民。
+//////Person 和 Apartment 的例子展示了两个属性的值都允许为 nil，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。
+///2.Customer and CreditCard 在这个数据模型中，一个客户可能有或者没有信用卡，但是一张信用卡总是关联着一个客户。
+//////Customer 和 CreditCard 的例子展示了一个属性的值允许为 nil，而另一个属性的值不允许为 nil，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。
+///3.Country and City 在这个模型中，每个国家必须有首都，每个城市必须属于一个国家。
+//////然而，存在着第三种场景，在这种场景中，两个属性都必须有值，并且初始化完成后永远不会为 nil。在这种场景中，需要一个类使用无主属性，而另外一个类使用隐式解包可选值属性。
+
+////4.闭包的循环强引用
+
+
 //two ways
-//weak reference
-//unowned reference
+//weak reference    弱引用
+//unowned reference 无主引用
 
 
 
@@ -115,6 +130,12 @@ class Customer {
         print("\(name) is being deintialized")
     }
 }
+
+//重点
+//
+//使用无主引用，你必须确保引用始终指向一个未销毁的实例。
+//
+//如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误
 
 class CreditCard {
     let number: UInt64
@@ -153,17 +174,9 @@ customerJhon = nil
 //与所有不安全的操作一样，你需要负责检查代码以确保其安全性。
 //你可以通过 unowned(unsafe) 来声明不安全无主引用。
 //如果你试图在实例被销毁后，访问该实例的不安全无主引用，你的程序会尝试访问该实例之前所在的内存地址，这是一个不安全的操作。
-//
-//
-//Person 和 Apartment 的例子展示了两个属性的值都允许为 nil，并会潜在的产生循环强引用。
-//这种场景最适合用弱引用来解决。
-//
-//Customer 和 CreditCard 的例子展示了一个属性的值允许为 nil，而另一个属性的值不允许为 nil，这也可能会产生循环强引用。
-//这种场景最适合通过无主引用来解决。
 
 
-//然而，存在着第三种场景，在这种场景中，两个属性都必须有值，并且初始化完成后永远不会为 nil。
-//在这种场景中，需要一个类使用无主属性，而另外一个类使用隐式解析可选属性。
+
 class Country {
     let name: String
     var capitalCity: City!
