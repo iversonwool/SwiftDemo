@@ -119,7 +119,7 @@ do {
 
 
 
-//MARK: - 讲错误转换成可选值
+//MARK: - 将错误转换成可选值
 func someThrowingFunction() throws -> Int {
     //
     return 1
