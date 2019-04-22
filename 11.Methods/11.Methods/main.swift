@@ -42,6 +42,8 @@ counter.reset()
 
 //参数名称 和 属性名称
 
+//MARK: - 在实例方法中修改值类型
+//mutating
 struct Point {
     var x = 0.0, y = 0.0
     func isToTheRightOfX(_ x: Double) -> Bool {
